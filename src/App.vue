@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import main from "./demo/main.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    HelloWorld: main
   }
 };
 </script>
