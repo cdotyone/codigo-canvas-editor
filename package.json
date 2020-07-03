@@ -1,7 +1,8 @@
 {
   "name": "cgo-canvas-editor",
   "version": "0.1.0",
-  "private": true,
+  "author": "Chris Doty",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -12,6 +13,8 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.10.4",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
