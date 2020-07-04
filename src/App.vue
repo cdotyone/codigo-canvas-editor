@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <cgo-canvas-editor></cgo-canvas-editor>
   </div>
 </template>
 
 <script>
-import main from "./demo/main.vue";
+import CgoCanvasEditor from "./canvas-editor";
 
 export default {
   name: "App",
   components: {
-    HelloWorld: main
+    CgoCanvasEditor
   }
 };
 </script>
@@ -22,7 +21,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin:0;
 }
 </style>
