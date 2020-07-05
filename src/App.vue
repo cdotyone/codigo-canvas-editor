@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CgoCanvasEditor from "./canvas-editor";
+import CgoCanvasEditor from "./cgo-canvas-editor";
 
 export default {
   name: "App",

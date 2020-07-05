@@ -1,6 +1,6 @@
 import konva from "konva";
 import VueKonva from 'vue-konva';
-import CgoCanvasEditor from "./canvas-editor";
+import CgoCanvasEditor from "./cgo-canvas-editor";
 
 export default {
   install: function (Vue) {

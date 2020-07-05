@@ -1,0 +1,151 @@
+:root {
+  --input-padding-x: .50rem;
+  --input-padding-y: .60rem;
+}
+
+.floating-labels {
+  .form-group {
+    position: relative;
+    text-align: left;
+  }
+
+  .input-group-prepend {
+    height: 3.18rem;
+    button {
+      height: 3.18rem !important;
+    }
+  }
+
+  .form-group > input, .form-group > div > label {
+    padding: var(--input-padding-y) var(--input-padding-x);
+  }
+
+  .form-group > label, .form-group > div > label  {
+    padding: 0 var(--input-padding-x);
+  }
+
+  .form-group > label, .form-group > div > label  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0; /* Override default `<label>` margin */
+    line-height: 1.5;
+    color: #777;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: all .1s ease-in-out;
+  }
+
+  .form-group > div > label {
+    left: 10px;
+  }
+
+  .form-group.col > label{
+    left: 15px;
+  }
+
+  .form-group input {
+    border: $input-border-width solid $input-border-color;
+  }
+
+  .form-group input::-webkit-input-placeholder {
+    color: transparent;
+  }
+
+  .form-group input:-ms-input-placeholder {
+    color: transparent;
+  }
+
+  .form-group input::-ms-input-placeholder {
+    color: transparent;
+  }
+
+  .form-group input::-moz-placeholder {
+    color: transparent;
+  }
+
+  .form-group input::placeholder {
+    color: transparent;
+  }
+
+  .form-group input:not(:placeholder-shown) {
+    padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+    padding-bottom: calc(var(--input-padding-y) / 3);
+  }
+
+  .form-group input:placeholder-shown::placeholder {
+    color: #777;
+  }
+
+  .form-group select ~ label {
+    font-size: 12px;
+  }
+
+  .form-group input:placeholder-shown ~ label {
+    margin-top: .5rem;
+    font-size: 16px;
+    color: transparent;
+  }
+
+  .form-group input:not(:placeholder-shown) ~ label {
+    padding-top: calc(var(--input-padding-y) / 3);
+    padding-bottom: calc(var(--input-padding-y) / 3);
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  .form-control{
+    height: 3.18rem;
+    font-size: 1.2rem;
+  }
+
+  textarea.form-control {
+    padding-top: 1.1rem;
+    height: 57px;
+  }
+
+  select.form-control {
+    padding: 16px 8px 6px 5px;
+    height: 3.125rem;
+  }
+
+  button.dropdown-toggle {
+    height: 2.78rem;
+    width: 5.2rem;
+  }
+
+  .form-group.input-prepend > label {
+    left: 5.2rem;
+  }
+
+  .input-group.vux-required-group .vux-required {
+    top: 1.3rem;
+  }
+
+  select.form-control,
+  .input-group-append {
+    margin-top: 0.15rem;
+  }
+
+  .clear-button.input-group-append {
+    margin-top: 0rem;
+  }
+
+  .btn-outline-secondary.dropdown-toggle {
+    color: $input-color;
+    background-color: $input-bg;
+    background-clip: padding-box;
+    border: $input-border-width solid $input-border-color;
+  }
+
+  .floating-label {
+    display: block;
+  }
+  .no-floating-label {
+    display: none !important;
+  }
+}
+

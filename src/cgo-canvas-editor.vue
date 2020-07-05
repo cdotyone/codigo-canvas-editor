@@ -1,27 +1,33 @@
 <template>
-  <v-stage class="cgo-canvas" :config="configKonva" ref="stage" :key="'cgo-canvas'+key">
-    <v-layer>
-      <v-group v-for="item in items">
-        <v-circle v-if="item.type==='circle'" :config="item"></v-circle>
-        <v-ring v-if="item.type==='ring'" :config="item"></v-ring>
-        <v-text v-if="item.type==='text'" :config="item"/>
-        <v-rect v-if="item.type==='rect'" :config="item"/>
-        <v-line v-if="item.type==='line'" :config="item"/>
-        <v-star v-if="item.type==='star'" :config="item"/>
-        <v-image v-if="item.type==='image' && item._loaded" :config="item"/>
-        <v-group v-if="item.type==='path' && item._loaded" :config="item">
-          <v-path v-for="p in item._paths" :config="getSvgConfig(item,p)"/>
+  <div class="cgo-canvas">
+    <v-stage class="ce-col" :style="{width:(configKonva.width+8)+'px'}" :config="configKonva" :key="'cgo-canvas'+key">
+      <v-layer>
+        <v-group v-for="item in items">
+          <v-circle v-if="item.type==='circle'" :config="item"></v-circle>
+          <v-ring v-if="item.type==='ring'" :config="item"></v-ring>
+          <v-text v-if="item.type==='text'" :config="item"/>
+          <v-rect v-if="item.type==='rect'" :config="item"/>
+          <v-line v-if="item.type==='line'" :config="item"/>
+          <v-star v-if="item.type==='star'" :config="item"/>
+          <v-image v-if="item.type==='image' && item._loaded" :config="item"/>
+          <v-group v-if="item.type==='path' && item._loaded" :config="item">
+            <v-path v-for="p in item._paths" :config="getSvgConfig(item,p)"/>
+          </v-group>
+          <v-ellipse v-if="item.type==='ellipse'" :config="item"></v-ellipse>
         </v-group>
-        <v-ellipse v-if="item.type==='ellipse'" :config="item"></v-ellipse>
-      </v-group>
-    </v-layer>
-  </v-stage>
+      </v-layer>
+    </v-stage>
+    <cgo-properties class="ce-col" :style="{width:propWidth+'px'}" :handle-left="true"></cgo-properties>
+  </div>
 </template>
 
 <script>
   import axios from "axios";
+  import CgoProperties from "./cgo-properties";
+
   export default {
     name: "cgo-canvas-editor",
+    components: {CgoProperties},
     data() {
       return {
         key:0,
@@ -29,15 +35,16 @@
           width: 200,
           height: 200
         },
-        items: [{
-            type:'circle',
-            x: 100,
-            y: 100,
-            radius: 70,
-            fill: "red",
-            stroke: "black",
-            strokeWidth: 4
-          },
+        items: [
+          {
+          type:'circle',
+          x: 100,
+          y: 100,
+          radius: 70,
+          fill: "red",
+          stroke: "black",
+          strokeWidth: 4
+        },
           {
             type:'star',
             x: 400,
@@ -120,7 +127,8 @@
             stroke: 'green',
             strokeWidth: 1
           }
-        ]
+        ],
+        propWidth:200
       };
     },
     created() {
@@ -201,9 +209,9 @@
         }
       },
       onResize() {
-        let stage=this.$refs.stage.$el;
+        let stage=this.$el;
         if(stage && stage.offsetWidth && stage.offsetHeight) {
-          this.configKonva.width = stage.offsetWidth;
+          this.configKonva.width = stage.offsetWidth - this.propWidth - 8;
           this.configKonva.height = stage.offsetHeight;
         } else {
           setTimeout(()=>{this.onResize()},500);
@@ -213,10 +221,14 @@
   };
 </script>
 
-<style>
+<style lang="scss" scoped>
   .cgo-canvas {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+
+    .ce-col {
+      display: inline-block;
+      float: left;
+    }
   }
 </style>
