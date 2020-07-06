@@ -50,17 +50,17 @@
       .list {
         width:100%;
         min-height:100%;
-        input {
-          border-left: none;
-        }
-        div:nth-child(n+1) {
-          input {
-            border-top:none;
-            border-bottom-color: #aaaaaa;
-          }
+        .form-group {
+          padding-left: .25rem;
+          border-bottom: 1px #aaaaaa;
           label {
             border:none;
           }
+        }
+        input {
+          border: none;
+          padding-left: 0;
+          padding-right: 0;
         }
       }
     }
