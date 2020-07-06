@@ -34,6 +34,7 @@
       },
       load() {
         let item = this.config;
+        if(item.image) return;
         item._loaded = false;
         let imageObj = new Image();
         item.image = imageObj;

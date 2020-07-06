@@ -1,8 +1,11 @@
 <template>
   <div class="cgo-canvas">
-    <v-stage class="ce-col" :style="{width:(configKonva.width)+'px'}" :config="configKonva" :key="'cgo-canvas'+key">
+    <v-stage class="ce-col" :style="{width:(configKonva.width)+'px'}" :config="configKonva" :key="'cgo-canvas'+key"
+             @mousedown="onStageMouseDown"
+             @touchstart="onStageMouseDown">
       <v-layer>
-        <cgo-canvas-item v-for="item in items" :item="item" @click="onClickItem(item)"></cgo-canvas-item>
+        <cgo-canvas-item v-for="item in drawItems" :item="item" @transformend="onTransformEnd"></cgo-canvas-item>
+        <v-transformer ref="transformer" />
       </v-layer>
     </v-stage>
     <cgo-properties class="ce-col" :style="{width:propWidth+'px'}" :handle-left="true"></cgo-properties>
@@ -11,6 +14,7 @@
 
 <script>
   import CgoProperties from "./cgo-properties";
+  import { v4 as uuidv4 } from 'uuid';
 
   export default {
     name: "cgo-canvas-editor",
@@ -28,8 +32,8 @@
             x: 300,
             y: 100,
             src: require('@fortawesome/fontawesome-free/svgs/brands/vuejs.svg'),
-            width: 100,
-            height: 100,
+            width: 500,
+            height: 500,
             fill: 'green',
             stroke: 'green',
             strokeWidth: 1
@@ -105,7 +109,7 @@
             y: 300,
             fill: 'blue'
           },
-          {type:'text',text: 'Some text on canvas', fontSize: 15},
+          {type:'text',text: 'Pen is broken', fontSize: 15},
           {
             type: 'image',
             x: 200,
@@ -115,7 +119,8 @@
             height: 100
           }
         ],
-        propWidth:200
+        propWidth:200,
+        selected: undefined
       };
     },
     created() {
@@ -135,8 +140,80 @@
           setTimeout(()=>{this.onResize()},500);
         }
       },
+
+      onTransformEnd(e) {
+        const rect = this.items.find(r => r.name === this.selected);
+        // update the state
+        rect.x = e.target.x();
+        rect.y = e.target.y();
+        rect.rotation = e.target.rotation();
+        rect.scaleX = e.target.scaleX();
+        rect.scaleY = e.target.scaleY();
+      },
+      onStageMouseDown(e) {
+        if (e.target === e.target.getStage()) {
+          this.selected = '';
+          this.updateTransformer();
+          return;
+        }
+
+        // clicked on transformer - do nothing
+        const clickedOnTransformer =
+          e.target.getParent().className === 'Transformer';
+        if (clickedOnTransformer) {
+          return;
+        }
+
+        // find clicked rect by its name
+        let name = e.target.name();
+        let node = e.target;
+        while((name==='' || name===undefined) && node.parent && node!==e.target.getStage()) {
+          node=node.parent;
+          name = node.name();
+        }
+        const rect = this.items.find(r => r.name === name);
+        if (rect) {
+          this.selected = name;
+        } else {
+          this.selected = '';
+        }
+        this.updateTransformer();
+      },
+      updateTransformer() {
+        // here we need to manually attach or detach Transformer node
+        const transformerNode = this.$refs.transformer.getNode();
+        const stage = transformerNode.getStage();
+        const { selected } = this;
+
+        const selectedNode = stage.findOne('.' + selected);
+        // do nothing if selected node is already attached
+        if (selectedNode === transformerNode.node()) {
+          return;
+        }
+
+        if (selectedNode) {
+          // attach to another node
+          transformerNode.nodes([selectedNode]);
+        } else {
+          // remove transformer
+          transformerNode.detach();
+        }
+        transformerNode.getLayer().batchDraw();
+      },
       onClickItem(item) {
 
+      }
+    },
+    computed: {
+      drawItems() {
+        let items = this.items;
+        for(let i=0;i<items.length;i++){
+          if(!items[i].name) {
+            items[i].name = uuidv4();
+          }
+          items[i].draggable = true;
+        }
+        return items;
       }
     }
   };
