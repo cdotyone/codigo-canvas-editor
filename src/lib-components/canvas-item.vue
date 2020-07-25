@@ -6,15 +6,15 @@
     <v-rect v-if="item.type==='rect'" v-on="$listeners" :config="item"/>
     <v-line v-if="item.type==='line'" v-on="$listeners" :config="item"/>
     <v-star v-if="item.type==='star'" v-on="$listeners" :config="item"/>
-    <cgo-canvas-svg v-if="item.type==='path'" v-on="$listeners" :config="item"></cgo-canvas-svg>
-    <cgo-canvas-image v-if="item.type==='image'" v-on="$listeners" :config="item"></cgo-canvas-image>
+    <codigo-canvas-svg v-if="item.type==='path'" v-on="$listeners" :config="item"></codigo-canvas-svg>
+    <codigo-canvas-image v-if="item.type==='image'" v-on="$listeners" :config="item"></codigo-canvas-image>
     <v-ellipse v-if="item.type==='ellipse'" v-on="$listeners" :config="item"></v-ellipse>
   </v-group>
 </template>
 
 <script>
   export default {
-    name: "cgo-canvas-item",
+    name: "codigo-canvas-item",
     props: {
       item:{
         type: Object,

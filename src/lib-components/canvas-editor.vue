@@ -4,7 +4,7 @@
              @mousedown="onStageMouseDown"
              @touchstart="onStageMouseDown">
       <v-layer>
-        <cgo-canvas-item v-for="item in drawItems" :item="item" @transformend="onTransformEnd"></cgo-canvas-item>
+        <codigo-canvas-item v-for="(item, index) in drawItems" :item="item" :key="'c-item'+index" @transformend="onTransformEnd"></codigo-canvas-item>
         <v-transformer ref="transformer" />
       </v-layer>
     </v-stage>
@@ -13,12 +13,13 @@
 </template>
 
 <script>
-  import CgoProperties from "./cgo-properties";
   import { v4 as uuidv4 } from 'uuid';
+  import CgoProperties from "./cgo-properties.vue";
+  import CodigoCanvasItem from "./canvas-item.vue";
 
   export default {
-    name: "cgo-canvas-editor",
-    components: {CgoProperties},
+    name: "codigo-canvas-editor",
+    components: {CodigoCanvasItem, CgoProperties},
     data() {
       return {
         key:0,
@@ -39,14 +40,14 @@
             strokeWidth: 1
           },
           {
-          type:'circle',
-          x: 100,
-          y: 100,
-          radius: 70,
-          fill: "red",
-          stroke: "black",
-          strokeWidth: 4
-        },
+            type:'circle',
+            x: 100,
+            y: 100,
+            radius: 70,
+            fill: "red",
+            stroke: "black",
+            strokeWidth: 4
+          },
           {
             type:'star',
             x: 400,
@@ -114,7 +115,7 @@
             type: 'image',
             x: 200,
             y: 100,
-            src: require('./assets/logo.png'),
+            src: require('../assets/logo.png'),
             width: 100,
             height: 100
           }

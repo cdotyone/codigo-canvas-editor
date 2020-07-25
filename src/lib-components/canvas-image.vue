@@ -4,7 +4,7 @@
 
 <script>
   export default {
-    name: "cgo-canvas-svg",
+    name: "codigo-canvas-svg",
     props: {
       config: {
         type: Object,

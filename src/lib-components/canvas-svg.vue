@@ -1,6 +1,6 @@
 <template>
   <v-group v-if="loaded" v-on="$listeners" :config="getClip()">
-    <v-path v-for="p in this.paths" v-on="$listeners" :config="getSvgConfig(p)"/>
+    <v-path v-for="(p, index) in this.paths" :key="'c-path'+index" v-on="$listeners" :config="getSvgConfig(p)"/>
     <v-rect :config="getRectConfig()"></v-rect>
   </v-group>
 </template>
@@ -9,7 +9,7 @@
   import axios from "axios";
 
   export default {
-    name: "cgo-canvas-svg",
+    name: "codigo-canvas-svg",
     props: {
       config: {
         type: Object,

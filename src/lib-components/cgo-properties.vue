@@ -15,9 +15,9 @@
 </template>
 
 <script>
-  import CgoFormInput from "./cgo-form-input";
+  import CgoFormInput from "./cgo-form-input.vue";
   export default {
-    name: "cgo-properties",
+    name: "codigo-properties",
     components: {CgoFormInput},
     props: {
       handleLeft: {
@@ -33,7 +33,8 @@
 </script>
 
 <style lang="scss">
-  @import "assets/scss/floating";
+  @import "../assets/scss/variables";
+  @import "../assets/scss/floating";
 
   .cgo-properties {
     width:100%;

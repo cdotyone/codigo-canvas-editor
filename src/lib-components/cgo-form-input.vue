@@ -23,7 +23,7 @@
 
 <script>
   export default {
-    name: "cgo-form-input",
+    name: "codigo-form-input",
     props: {
       id: {
         type: String,
